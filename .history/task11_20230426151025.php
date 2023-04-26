@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <?php
+    function findPath($A, $B)
+    {
+        $array = [
+            [0, 1, 0, 1, 1, 1, 1, 0, 1, 1],
+            [1, 1, 1, 1, 1, 0, 1, 1, 0, 1],
+            [0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
+            [1, 1, 1, 1, 1, 0, 1, 0, 1, 1],
+            [1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
+            [1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
+            [0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+            [0, 1, 1, 0, 1, 1, 1, 0, 1, 1],
+            [1, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+        ];
+
+        $x1 = $A[0];
+        $y1 = $A[1];
+        $x2 = $B[0];
+        $y2 = $B[1];
+
+        if ($x1 > $x2) {
+            for ($i = $x1; $i >= $x2; $i--) {
+                $p = $array[$i][$y1];
+                if ($p == 0) {
+                    $i += 1;
+                    if ($y1 < $y2) {
+                        $y1 += 1;
+                        $p = $array[$i][$y1];
+                        if ($p == 0) {
+                            $y1 -= 2;
+                            $p = $array[$i][$y1];
+                            if ($p == 0) {
+                                $y1 += 2;
+                                $i += 1;
+                                $p = $array[$i][$y1];
+                            }
+                        }
+                    }
+                } else {
+                    echo " $p [$i][$y1]";
+                    echo "<br>";
+                }
+            }
+        } else {
+            for ($i = $x1; $i <= $x2; $i++) {
+                $p = $array[$i][$y1];
+                if ($p == 0) {
+                    $i -= 1;
+                    if ($y1 < $y2) {
+                        $y1 += 1;
+                        $p = $array[$i][$y1];
+                        if ($p == 0) {
+                            $y1 -= 2;
+                            $p = $array[$i][$y1];
+                            if ($p == 0) {
+                                $y1 += 2;
+                                $i -= 1;
+                                $p = $array[$i][$y1];
+                            }
+                        }
+                    } else {
+                        $y1 -= 1;
+                        $p = $array[$i][$y1];
+                        echo "p $p"
+                        if ($p == 0) {
+                            echo "helloo";
+                            $y1 += 2;
+                            $p = $array[$i][$y1];
+                            if ($p == 0) {
+                                $y1 -= 2;
+                                $i += 1;
+
+                                $p = $array[$i][$y1];
+                            }
+                        }
+                    }
+                } else {
+                    echo " $p [$i][$y1]";
+                    echo "<br>";
+                }
+            }
+        }
+    }
+
+    findPath([2, 7], [9, 8]);
+    ?>
+</body>
+
+</html>
