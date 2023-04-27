@@ -44,9 +44,9 @@
             return $this;
         }
 
-        function addBy($addendum)
+        function addBy($adder)
         {
-            $this->result = $this->result + $addendum;
+            $this->result = $this->result + $adder;
             return $this;
         }
 

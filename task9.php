@@ -12,7 +12,7 @@
     <?php
     class Student
     {
-        public $firstName, $lastName, $group, $averageMark;
+        protected $firstName, $lastName, $group, $averageMark;
 
         function __construct($firstName, $lastName, $group, $averageMark)
         {

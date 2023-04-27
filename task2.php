@@ -10,13 +10,14 @@
 
 <body>
     <?php
-    function BirthdayCountdown($birthday)
+    function birthdayCountdown($birthday)
     {
         $birthdayArr = date_parse($birthday);
         $convertedBirthday = mktime(0, 0, 0, $birthdayArr["month"], $birthdayArr["day"],  $birthdayArr["year"]);
         $currentDay = time();
-        $diff_days = $convertedBirthday - $currentDay;
-        $days = (int)($diff_days / 86400);
+        $diffDays = $convertedBirthday - $currentDay;
+        $numberFromSecondsToDays = 86400;
+        $days = (int)($diffDays / $numberFromSecondsToDays);
         echo "До дня рождения осталось $days дня";
     }
     BirthdayCountdown('20-05-2023');

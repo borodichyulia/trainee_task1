@@ -10,20 +10,20 @@
 
 <body>
     <?php
-    function outputNumbers($a, $b)
+    function outputNumbers($arg1, $arg2)
     {
-        if ($a < $b) {
-            $i = $a;
+        if ($arg1 < $arg2) {
+            $i = $arg1;
             echo "$i ";
-            $a += 1;
-            outputNumbers($a, $b);
-        } elseif ($a > $b) {
-            $i = $a;
+            $arg1 += 1;
+            outputNumbers($arg1, $arg2);
+        } elseif ($arg1 > $arg2) {
+            $i = $arg1;
             echo "$i ";
-            $a -= 1;
-            outputNumbers($a, $b);
+            $arg1 -= 1;
+            outputNumbers($arg1, $arg2);
         } else {
-            echo $b;
+            echo $arg2;
         }
     }
     outputNumbers(9, 4);

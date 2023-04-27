@@ -10,247 +10,132 @@
 
 <body>
     <?php
-    function findPath($A, $B)
+    class Cell
     {
-        $array = [
-            [0, 1, 0, 1, 1, 1, 1, 0, 1, 1],
-            [1, 1, 1, 1, 1, 0, 1, 1, 0, 1],
-            [0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
-            [1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-            [1, 1, 1, 1, 1, 0, 1, 0, 1, 1],
-            [1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
-            [1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
-            [0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
-            [0, 1, 1, 0, 1, 1, 1, 0, 1, 1],
-            [1, 0, 1, 1, 1, 0, 1, 1, 1, 1]
-        ];
+        public $x;
+        public $y;
+        public $dist;
+        public $prev;
 
-        $x1 = $A[0];
-        $y1 = $A[1];
-        $x2 = $B[0];
-        $y2 = $B[1];
-
-        $n = [];
-        if ($x1 > $x2) {
-            for ($i = $x1; $i >= $x2; $i--) {
-                $p = $array[$i][$y1];
-                array_push($n, [$i, $y1]);
-                if ($p == 0) {
-                    $i += 1;
-
-                    $y1 += 1;
-                    $p = $array[$i][$y1];
-                    array_push($n,  [$i, $y1]);
-                    echo " $p [$i][$y1]";
-                    echo "<br>";
-                    if ($p == 0) {
-                        $y1 -= 2;
-                        $p = $array[$i][$y1];
-                        array_push($n, [$i, $y1]);
-                        echo " $p [$i][$y1]";
-                        echo "<br>";
-                        if ($p == 0) {
-                            $y1 += 2;
-                            $i += 1;
-                            $p = $array[$i][$y1];
-                            array_push($n,  [$i, $y1]);
-                            echo " $p [$i][$y1]";
-                            echo "<br>";
-                        }
-                    }
-                } else {
-                    array_push($n,  [$i, $y1]);
-                    echo " $p [$i][$y1]";
-                    echo "<br>";
-                }
-            }
-        } else {
-            for ($i = $x1; $i <= $x2; $i++) {
-                $p = $array[$i][$y1];
-                if ($p == 0) {
-                    $i -= 1;
-                    $y1 += 1;
-                    $p = $array[$i][$y1];
-                    array_push($n,  [$i, $y1]);
-                    echo " $p [$i][$y1]";
-                    echo "<br>";
-                    if ($p == 0) {
-                        $y1 -= 2;
-                        $p = $array[$i][$y1];
-                        array_push($n, [$i, $y1]);
-                        echo " $p [$i][$y1]";
-                        echo "<br>";
-                        if ($p == 0) {
-                            $y1 += 2;
-                            $i -= 1;
-                            $p = $array[$i][$y1];
-                            array_push($n,  [$i, $y1]);
-                            echo " $p [$i][$y1]";
-                            echo "<br>";
-                        }
-                    }
-                } else {
-                    array_push($n, [$i, $y1]);
-                    echo " $p [$i][$y1]";
-                    echo "<br>";
-                }
-            }
+        public function __construct($x, $y, $dist, $prev)
+        {
+            $this->x = $x;
+            $this->y = $y;
+            $this->dist = $dist;
+            $this->prev = $prev;
         }
 
-        if ($y1 < $y2) {
-            for ($i = $y1; $i <= $y2; $i++) {
-                $row = $n[count($n) - 1][0];
-                $l = $array[$row][$i];
-                if ($l == 0) {
-                    $i += 1;
-                    $row += 1;
-                    $l = $array[$row][$i];
-                    echo " $l [$row][$i]";
-                    echo "<br>";
-                } else {
-                    echo " $l [$row][$i]";
-                    echo "<br>";
-                }
-            }
-        } else {
-            for ($i = $y1; $i >= $y2; $i--) {
-                $row = $n[count($n) - 1][0];
-                $l = $array[$row][$i];
-                if ($l == 0) {
-                    $i += 1;
-                    $row += 1;
-                    $l = $array[$row][$i];
-                    echo " $l [$row][$i]";
-                    echo "<br>";
-                } else {
-                    echo " $l [$row][$i]";
-                    echo "<br>";
-                }
-            }
+        public function __toString()
+        {
+            return "(" . $this->x . "," . $this->y . ")";
         }
     }
 
-    // class Path
-    // {
-    //     public $x1, $y1, $x2, $y2, $n = [];
-    //     public $array = [
-    //         [0, 1, 0, 1, 1, 1, 1, 0, 1, 1],
-    //         [1, 1, 1, 1, 1, 0, 1, 1, 0, 1],
-    //         [0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
-    //         [1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-    //         [1, 1, 1, 1, 1, 0, 1, 0, 1, 1],
-    //         [1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
-    //         [1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
-    //         [0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
-    //         [0, 1, 1, 0, 1, 1, 1, 0, 1, 1],
-    //         [1, 0, 1, 1, 1, 0, 1, 1, 1, 1]
-    //     ];
+    function shortestPath($matrix, $start, $end)
+    {
+        $sx = $start[0];
+        $sy = $start[1];
+        $dx = $end[0];
+        $dy = $end[1];
+
+        if ($matrix[$sx][$sy] == 0 || $matrix[$dx][$dy] == 0) {
+            echo "There is no path.";
+            return;
+        }
+
+        $m = count($matrix);
+        $n = count($matrix[0]);
+        $cells = array();
+        for ($i = 0; $i < $m; $i++) {
+            $cells[$i] = [];
+            for ($j = 0; $j < $n; $j++) {
+                if ($matrix[$i][$j] != 0) {
+                    $cells[$i][$j] = new Cell($i, $j, PHP_INT_MAX, null);
+                } else {
+                    $cells[$i][$j] = [];
+                }
+            }
+        }
+
+        $queue = array();
+        $src = $cells[$sx][$sy];
+        $src->dist = 0;
+
+        array_push($queue, $src);
+        $dest = null;
+        $p = null;
+
+        while (($p = array_shift($queue)) != null) {
+
+            if ($p->x == $dx && $p->y == $dy) {
+                $dest = $p;
+                break;
+            }
 
 
-    //     function __construct($x1, $y1, $x2, $y2)
-    //     {
-    //         $this->x1 = $x1;
-    //         $this->y1 =  $y1;
-    //         $this->x2 = $x2;
-    //         $this->y2 =  $y2;
-    //     }
+            visit($cells, $queue, $p->x - 1, $p->y, $p);
 
-    //     //if x1>x2
-    //     function top()
-    //     {
-    //         for ($i = $this->x1; $i >= $this->x2; $i--) {
-    //             $p = $this->array[$i][$this->y1];
-    //             array_push($this->n, [$i, $this->y1]);
-    //             if ($p == 0) {
-    //                 $i += 1;
+            visit($cells, $queue, $p->x + 1, $p->y, $p);
 
-    //                 $this->y1 += 1;
-    //                 $p = $this->array[$i][$this->y1];
-    //                 array_push($this->n,  [$i, $this->y1]);
-    //                 echo " $p [$i][$this->y1]";
-    //                 echo "<br>";
-    //                 if ($p == 0) {
-    //                     $this->y1 -= 2;
-    //                     $p = $this->array[$i][$this->y1];
-    //                     array_push($this->n, [$i, $this->y1]);
-    //                     echo " $p [$i][$this->y1]";
-    //                     echo "<br>";
-    //                     if ($p == 0) {
-    //                         $this->y1 += 2;
-    //                         $i += 1;
-    //                         $p = $this->array[$i][$this->y1];
-    //                         array_push($this->n,  [$i, $this->y1]);
-    //                         echo " $p [$i][$this->y1]";
-    //                         echo "<br>";
-    //                     }
-    //                 }
-    //             } else {
-    //                 array_push($this->n,  [$i, $this->y1]);
-    //                 echo " $p [$i][$this->y1]";
-    //                 echo "<br>";
-    //             }
-    //         }
-    //     }
-    //     //if x1<x2
-    //     function bottom()
-    //     {
-    //         for ($i = $this->x1; $i <= $this->x2; $i++) {
-    //             $p = $this->array[$i][$this->y1];
-    //             if ($p == 0) {
-    //                 $i -= 1;
-    //                 $this->y1 += 1;
-    //                 $p = $this->array[$i][$this->y1];
-    //                 array_push($this->n,  [$i, $this->y1]);
-    //                 echo " $p [$i][$this->y1]";
-    //                 echo "<br>";
-    //                 if ($p == 0) {
-    //                     $this->y1 -= 2;
-    //                     $p = $this->array[$i][$this->y1];
-    //                     array_push($this->n, [$i, $this->y1]);
-    //                     echo " $p [$i][$this->y1]";
-    //                     echo "<br>";
-    //                     if ($p == 0) {
-    //                         $this->y1 += 2;
-    //                         $i -= 1;
-    //                         $p = $this->array[$i][$this->y1];
-    //                         array_push($this->n,  [$i, $this->y1]);
-    //                         echo " $p [$i][$this->y1]";
-    //                         echo "<br>";
-    //                     }
-    //                 }
-    //             } else {
-    //                 array_push($this->n, [$i, $this->y1]);
-    //                 echo " $p [$i][$this->y1]";
-    //                 echo "<br>";
-    //             }
-    //         }
-    //     }
-    //     //if y1<y2
-    //     function left()
-    //     {
-    //         for ($i = $this->y1; $i >= $this->y2; $i--) {
-    //             $row = $this->n[count($this->n) - 1][0];
-    //             $l = $this->array[$row][$i];
-    //             echo " $l [$row][$i]";
-    //             echo "<br>";
-    //         }
-    //     }
-    //     //if y1<y2
-    //     function right()
-    //     {
-    //         for ($i = $this->y1; $i <= $this->y2; $i++) {
-    //             $row = $this->n[count($this->n) - 1][0];
-    //             $l = $this->array[$row][$i];
-    //             echo " $l [$row][$i]";
-    //             echo "<br>";
-    //         }
-    //     }
-    // }
+            visit($cells, $queue, $p->x, $p->y - 1, $p);
 
-    // $obj = new Path(2, 8, 9, 1);
-    // echo $obj->bottom();
-    // echo $obj->left();
-    findPath([2, 8], [9, 1]);
+            visit($cells, $queue, $p->x, $p->y + 1, $p);
+        }
+
+        if ($dest == null) {
+            echo "There is no path.";
+            return;
+        } else {
+            $path = array();
+            $p = $dest;
+            do {
+                array_unshift($path, $p);
+            } while (($p = $p->prev) != null);
+
+            $resultsOfattempts  = [];
+            for ($i = 0; $i < count($path); $i++) {
+                $resultsOfattempts[$i][0] = $path[$i]->x;
+                $resultsOfattempts[$i][1] = $path[$i]->y;
+            }
+            $filename = 'result.txt';
+            $text = serialize($resultsOfattempts);
+            file_put_contents($filename, $text);
+
+            echo "Path: " . implode(", ", $path);
+        }
+    }
+
+    function visit(&$cells, &$queue, $x, $y, $parent)
+    {
+        if ($x < 0 ||  $x >= count($cells) ||  $y < 0 || $y >= count($cells[0])   || $cells[$x][$y] == null) {
+            return;
+        }
+
+        $dist = $parent->dist + 1;
+        $p = $cells[$x][$y];
+
+        if ($dist < $p->dist) {
+            $p->dist = $dist;
+            $p->prev = $parent;
+            array_push($queue, $p);
+        }
+    }
+
+    $matrix = [
+        [0, 1, 0, 1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 1, 0, 1, 1, 0, 1],
+        [0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1, 0, 1, 0, 1, 1],
+        [1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
+        [1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
+        [0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+        [0, 1, 1, 0, 1, 1, 1, 0, 1, 1],
+        [1, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+    ];
+    $start = [1, 7];
+    $end = [9, 2];
+    shortestPath($matrix, $start, $end);
     ?>
 </body>
 
